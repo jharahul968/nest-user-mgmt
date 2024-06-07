@@ -9,7 +9,7 @@ import {
 import { Permission } from '../permissions/permission.entity';
 import { Group } from '../groups/group.entity';
 
-@Entity()
+@Entity('Role')
 export class Role {
   @PrimaryGeneratedColumn()
   id: number;

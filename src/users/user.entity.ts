@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { Group } from '../groups/group.entity';
 
-@Entity()
+@Entity('User')
 export class User {
   @PrimaryGeneratedColumn()
   id: number;

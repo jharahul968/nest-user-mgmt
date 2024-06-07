@@ -8,7 +8,7 @@ import {
 import { Role } from '../roles/role.entity';
 import { User } from 'src/users/user.entity';
 
-@Entity()
+@Entity('Group')
 export class Group {
   @PrimaryGeneratedColumn()
   id: number;

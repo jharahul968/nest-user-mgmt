@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <!-- ChangeSet for the Users Table -->
+    <changeSet id="1" author="rahul">
+        <createTable tableName="User">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="passwordHash" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- ChangeSet for the Permissions Table -->
+    <changeSet id="2" author="rahul">
+        <createTable tableName="Permission">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="description" type="varchar(255)" />
+        </createTable>
+    </changeSet>
+
+    <!-- ChangeSet for the Roles Table -->
+    <changeSet id="3" author="rahul">
+        <createTable tableName="Role">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="description" type="varchar(255)" />
+            <column name="group_id" type="int">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- ChangeSet for the Groups Table -->
+    <changeSet id="4" author="rahul">
+        <createTable tableName="Group">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="description" type="varchar(255)" />
+        </createTable>
+    </changeSet>
+
+<!-- ChangeSet for the Users_Groups Join Table -->
+<changeSet id="5" author="rahul">
+    <createTable tableName="users_groups">
+        <column name="user_id" type="int">
+            <constraints nullable="false" primaryKey="true" referencedTableName="User" referencedColumnNames="id" foreignKeyName="fk_users_groups_user_id"/>
+        </column>
+        <column name="group_id" type="int">
+            <constraints nullable="false" primaryKey="true" referencedTableName="Group" referencedColumnNames="id" foreignKeyName="fk_users_groups_group_id"/>
+        </column>
+    </createTable>
+</changeSet>
+
+<!-- ChangeSet for the Roles_Permissions Join Table -->
+<changeSet id="6" author="rahul">
+    <createTable tableName="roles_permissions">
+        <column name="role_id" type="int">
+            <constraints nullable="false" primaryKey="true" referencedTableName="Role" referencedColumnNames="id" foreignKeyName="fk_roles_permissions_role_id"/>
+        </column>
+        <column name="permission_id" type="int">
+            <constraints nullable="false" primaryKey="true" referencedTableName="Permission" referencedColumnNames="id" foreignKeyName="fk_roles_permissions_permission_id"/>
+        </column>
+    </createTable>
+</changeSet>
+
+<!-- ChangeSet to add a foreign key to Roles referencing Groups -->
+<changeSet id="7" author="rahul">
+    <addForeignKeyConstraint constraintName="fk_roles_groups"
+                             baseTableName="Role"
+                             baseColumnNames="group_id"
+                             referencedTableName="Group"
+                             referencedColumnNames="id"
+                             onDelete="SET NULL"/>
+</changeSet>
+
+<!-- ChangeSet for creating indexes on foreign key columns -->
+<changeSet id="8" author="rahul">
+    <createIndex indexName="idx_users_groups_user_id" tableName="users_groups">
+        <column name="user_id"/>
+    </createIndex>
+    <createIndex indexName="idx_users_groups_group_id" tableName="users_groups">
+        <column name="group_id"/>
+    </createIndex>
+    <createIndex indexName="idx_roles_permissions_role_id" tableName="roles_permissions">
+        <column name="role_id"/>
+    </createIndex>
+    <createIndex indexName="idx_roles_permissions_permission_id" tableName="roles_permissions">
+        <column name="permission_id"/>
+    </createIndex>
+</changeSet>
+
+</databaseChangeLog>
