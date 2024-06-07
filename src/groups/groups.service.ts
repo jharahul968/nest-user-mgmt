@@ -66,7 +66,7 @@ export class GroupsService {
     return this.groupRepository.save(group);
   }
 
-  async addRoleToGroup(groupId: number, roleIds: number[]): Promise<Group> {
+  async assignRoleToGroup(groupId: number, roleIds: number[]): Promise<Group> {
     const group = await this.groupRepository.findOne({
       where: { id: groupId },
       relations: ['roles'],

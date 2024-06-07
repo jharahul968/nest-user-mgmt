@@ -32,4 +32,19 @@ export class GroupsController {
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.groupsService.delete(id);
   }
+
+  @Post(':groupId/users')
+  async assignUserToGroup(
+    @Param('groupId', ParseIntPipe) groupId: number,
+    @Body('userIds') userIds: number[],
+  ) {
+    return await this.groupsService.assignUserToGroup(groupId, userIds);
+  }
+  @Post(':groupId/roles')
+  async assignRoleToGroup(
+    @Param('groupId', ParseIntPipe) groupId: number,
+    @Body('roleIds') roleIds: number[],
+  ) {
+    return await this.groupsService.assignRoleToGroup(groupId, roleIds);
+  }
 }

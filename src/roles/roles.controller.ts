@@ -32,4 +32,15 @@ export class RolesController {
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.rolesService.delete(id);
   }
+
+  @Post(':roleId/permissions')
+  async assignPermissionToRole(
+    @Param('roleId', ParseIntPipe) roleId: number,
+    @Body('permissionIds') permissionIds: number[],
+  ) {
+    return await this.rolesService.assignPermissionToRole(
+      roleId,
+      permissionIds,
+    );
+  }
 }
