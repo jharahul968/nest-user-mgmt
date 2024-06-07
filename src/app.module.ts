@@ -15,7 +15,7 @@ import { PermissionsModule } from './permissions/permissions.module';
       password: 'wwe',
       database: 'rahul',
       entities: [],
-      synchronize: true,
+      synchronize: false,
     }),
     UsersModule,
     GroupsModule,
