@@ -40,11 +40,28 @@ export class GroupsController {
   ) {
     return await this.groupsService.assignUserToGroup(groupId, userIds);
   }
+
+  @Delete(':groupId/users/:userId')
+  async removeUserFromGroup(
+    @Param('groupId', ParseIntPipe) groupId: number,
+    @Param('userId', ParseIntPipe) userId: number,
+  ): Promise<void> {
+    await this.groupsService.removeUserFromGroup(groupId, userId);
+  }
+
   @Post(':groupId/roles')
   async assignRoleToGroup(
     @Param('groupId', ParseIntPipe) groupId: number,
     @Body('roleIds') roleIds: number[],
   ) {
     return await this.groupsService.assignRoleToGroup(groupId, roleIds);
+  }
+
+  @Delete(':groupId/roles/:roleId')
+  async removeRoleFromGroup(
+    @Param('groupId', ParseIntPipe) groupId: number,
+    @Param('roleId', ParseIntPipe) roleId: number,
+  ): Promise<void> {
+    await this.groupsService.removeRoleFromGroup(groupId, roleId);
   }
 }

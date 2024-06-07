@@ -43,4 +43,12 @@ export class RolesController {
       permissionIds,
     );
   }
+
+  @Delete(':roleId/permissions/:permissionId')
+  async removePermissionFromRole(
+    @Param('roleId', ParseIntPipe) roleId: number,
+    @Param('permissionId', ParseIntPipe) permissionId: number,
+  ): Promise<void> {
+    await this.rolesService.removePermissionFromRole(roleId, permissionId);
+  }
 }

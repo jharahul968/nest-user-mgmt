@@ -30,6 +30,7 @@ import { AppService } from './app.service';
     PermissionsModule,
   ],
   controllers: [AppController],
-  providers: [AppService, LiquibaseService],
+  // providers: [AppService, LiquibaseService],
+  providers: [AppService],
 })
 export class AppModule {}
