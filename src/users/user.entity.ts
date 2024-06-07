@@ -1,10 +1,4 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToMany,
-  JoinTable,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
 import { Group } from '../groups/group.entity';
 
 @Entity('User')
@@ -22,6 +16,5 @@ export class User {
   passwordHash: string;
 
   @ManyToMany(() => Group, (group) => group.users)
-  @JoinTable()
   groups: Group[];
 }

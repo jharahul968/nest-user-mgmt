@@ -24,6 +24,12 @@ export class RoleDto {
   @IsString()
   description: string;
 
+  @ApiProperty({
+    type: Number,
+    example: '1',
+  })
+  groupId: number;
+
   @IsArray()
   @IsOptional()
   @ValidateNested({ each: true })

@@ -4,6 +4,7 @@ import {
   Column,
   OneToMany,
   ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import { Role } from '../roles/role.entity';
 import { User } from 'src/users/user.entity';
@@ -23,5 +24,16 @@ export class Group {
   roles: Role[];
 
   @ManyToMany(() => User, (user) => user.groups)
+  @JoinTable({
+    name: 'users_groups',
+    joinColumn: {
+      name: 'user_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'group_id',
+      referencedColumnName: 'id',
+    },
+  })
   users: User[];
 }
